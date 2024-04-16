@@ -1,0 +1,20 @@
+.main-container {
+  border: 1px none black;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card-text-style {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+}

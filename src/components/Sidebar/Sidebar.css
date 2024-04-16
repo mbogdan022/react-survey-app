@@ -1,0 +1,21 @@
+.main-container-sidebar {
+  width: 20%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #363740;
+  display: flex;
+  align-items: center;
+}
+
+.inner-container-sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.item-style-sidebar {
+  color: #669999;
+}
