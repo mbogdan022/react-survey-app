@@ -25,7 +25,7 @@ const CategoryScreen = () => {
       <a className="go-back-btn-container" onClick={() => navigate(-1)}>
         <img src={BackIcon} style={{ width: 20, height: 20 }} />
       </a>
-      <h2 className="title-text-style">{category.name}</h2>
+      <h2 className="title-text-style">{category.categoryLetter + '.' + category.name}</h2>
     </div>
   )
 
@@ -55,21 +55,39 @@ const CategoryScreen = () => {
     navigate('/shared-category1', { state: { sharedCategory: sharedCategories[1], subcategoryName: 'With the intention of doing harm?', parentName: categoryName } })
   }
 
-  const renderActionCard = (categoryLetter, name, customColor, isChecked, hasAutoNext, subcategories_1, hasYesNoSection) => {
+  const renderActionCard = (categoryLetter, name, customColor, isChecked, hasAutoNext, subcategories_1, hasYesNoSection, autoEnable) => {
     let categoryName = ''
     if (categoryLetter) categoryName = categoryLetter + '.' + name
     else categoryName = name
+
+    let checker = false;
+
+    if (name == 'Judge/Plan') {
+      const search = checked.find(item => item.answer == 'A-1.Conflict Detection')
+      if (search) checker = true
+    } else if (name == 'Execution') {
+      console.log('here')
+      const search = checked.find(item => item.answer == 'A-3.Judge/Plan')
+      if (search) checker = true
+    }
+
+    const enabled = autoEnable || checker || false
     return (
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' }}>
-        <div className='main-container-card' style={{ backgroundColor: customColor || 'white' }} onClick={() => handleSavingCategory(categoryName, isChecked, hasAutoNext, subcategories_1, categoryName, customColor)}
+        <div
+          className='main-container-card'
+          style={{ backgroundColor: !enabled ? '#B4B5B9' : customColor }}
+          onClick={() =>
+            enabled ? handleSavingCategory(categoryName, isChecked, hasAutoNext, subcategories_1, categoryName, customColor) : {}
+          }
         >
-          <div className='inner-container-card' style={{ backgroundColor: customColor || 'white' }}>
-            {categoryLetter && <h1 className='card-text-style' style={{ color: customColor ? '#666699' : 'black' }}>{categoryLetter}. </h1>}
-            <h1 className='card-text-style' style={{ color: customColor ? '#666699' : 'black' }}>{name}</h1>
+          <div className='inner-container-card' style={{ backgroundColor: !enabled ? '#B4B5B9' : customColor }}>
+            {categoryLetter && <h1 className='card-text-style' style={{ color: !enabled ? 'grey' : 'white' }}>{categoryLetter}. </h1>}
+            <h1 className='card-text-style' style={{ color: !enabled ? 'grey' : 'white' }}>{name}</h1>
           </div>
         </div>
         {isChecked ? <img src={CheckIcon} style={{ width: 20, height: 20, marginLeft: 30, marginBottom: 20 }} /> : null}
-        {hasYesNoSection ?
+        {hasYesNoSection && enabled ?
           renderYesNoSection(
             () => handleSavingCategory(categoryName, isChecked, hasAutoNext, subcategories_1, categoryName, customColor),
             () => handleNo(categoryName, customColor))
@@ -98,6 +116,7 @@ const CategoryScreen = () => {
               subcategory.autoNext,
               subcategory.subcategories_1,
               subcategory.hasYesNo,
+              subcategory.autoEnable
             )
           })
         }

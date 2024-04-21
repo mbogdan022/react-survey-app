@@ -52,7 +52,6 @@ const Subcategory1Screen = () => {
 
   let question = subcategoryName
   const handleSavingCategory = (category, isSaved, hasAutoNext, subcategories_2, subcategoryName, color) => {
-    console.log('color: ', color)
     if (isSaved) dispatch(removeAnswer(category))
     else {
       dispatch(saveQuestionAndAnswer(question, category, color))
@@ -88,7 +87,6 @@ const Subcategory1Screen = () => {
         {renderHeader()}
         {
           subcategories_1.map((subcategory, index) => {
-            console.log('subcategory: ', subcategory)
             const subcategories_2 = subcategories_1[subcategories_1.length - 1].subcategories_2
             let name = ''
             if (subcategory.categoryLetter) name = subcategory.categoryLetter + '.' + subcategory.name

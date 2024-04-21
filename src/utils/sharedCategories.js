@@ -62,7 +62,7 @@ const sharedCategories = [
     subcategories: [
       {
         categoryLetter: null,
-        name: 'YES',
+        name: 'With the intention of doing harm',
         customColor: '#99e2ff',
         autoNext: true,
         subcategories_1: [
@@ -76,7 +76,7 @@ const sharedCategories = [
       },
       {
         categoryLetter: null,
-        name: 'NO',
+        name: 'With no intention of doing harm',
         customColor: '#99e2ff',
         autoNext: true,
         subcategories_1: [

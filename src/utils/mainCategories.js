@@ -13,6 +13,7 @@ const mainCategories = [
             name: 'Conflict Detection',
             customColor: '#99e2ff',
             autoNext: true,
+            autoEnable: true,
             subcategories_1: [
               {
                 categoryLetter: null,

@@ -10,6 +10,7 @@ import { removeAnswer, saveQuestionAndAnswerA2 } from '../../redux/actions';
 import BackIcon from '../../assets/back-icon.png';
 import CheckIcon from '../../assets/checkedIcon.png'
 import mainCategories from '../../utils/mainCategories'
+import sharedCategories from '../../utils/sharedCategories'
 
 const SharedCategoryScreen = () => {
   const navigate = useNavigate();
@@ -22,12 +23,14 @@ const SharedCategoryScreen = () => {
   const checked = useSelector(store => store.store.questionsAndAnswersA2) || []
   const activeMainCategory = useSelector(store => store.store.selectedMainCategory)
 
+  const findCategoryLetter = sharedCategories.find(category => category.name == subcategoryName)
+
   const renderHeader = () => (
     <div className="header-container">
       <a className="go-back-btn-container" onClick={() => navigate(-1)}>
         <img src={BackIcon} style={{ width: 20, height: 20 }} />
       </a>
-      <h2 className="title-text-style">{subcategoryName}</h2>
+      <h2 className="title-text-style">{findCategoryLetter ? findCategoryLetter.categoryLetter + '.' + subcategoryName : subcategoryName}</h2>
     </div>
   )
 
@@ -101,7 +104,7 @@ const SharedCategoryScreen = () => {
             )
           })
         }
-        {renderNextButton()}
+        {sharedCategory[0].autoNext ? null : renderNextButton()}
       </div>
     </>
   )

@@ -19,7 +19,7 @@ const SharedCategory1Screen = () => {
   const sharedCategory = state.sharedCategory.subcategories_2 || state.sharedCategory.subcategories_1 || state.sharedCategory?.subcategories || state.sharedCategory
 
   const dispatch = useDispatch();
-  const checked = useSelector(store => store.store.questionsAndAnswers)
+  const checked = useSelector(store => store.store.questionsAndAnswersA5)
   const activeMainCategory = useSelector(store => store.store.selectedMainCategory)
 
   const renderHeader = () => (
@@ -63,7 +63,6 @@ const SharedCategory1Screen = () => {
   }
 
   const renderActionCard = (categoryLetter, name, customColor, isChecked, hasAutoNext, subcategories_1) => {
-    console.log('customColor: ', customColor)
     let categoryName = ''
     if (categoryLetter) categoryName = categoryLetter + '.' + name
     else categoryName = name
@@ -102,7 +101,7 @@ const SharedCategory1Screen = () => {
             )
           })
         }
-        {renderNextButton()}
+        {sharedCategory[0].autoNext ? null : renderNextButton()}
       </div>
     </>
   )
