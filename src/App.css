@@ -7,7 +7,9 @@ body {
   font-family: sans-serif;
   height: 100vh;
   width: 100vw;
-  align-items: center;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
 }
 
 .main-container-card {
@@ -18,6 +20,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  width: 25%;
 }
 
 .inner-container-card {
@@ -27,7 +30,7 @@ body {
 }
 
 .card-text-style {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: bold;
   line-height: 20px;
 }

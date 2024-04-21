@@ -1,101 +1,32 @@
 import './App.css';
-import { useState } from 'react';
-import Sidebar from './components/Sidebar/Sidebar';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useSelector } from 'react-redux';
+
+import HomeScreen from './screens/HomeScreen/HomeScreen';
+import CategoryScreen from './screens/CategoryFlow/CategoryScreen';
+import Subcategory1Screen from './screens/CategoryFlow/Subcategory1Screen';
+import Subcategory2Screen from './screens/CategoryFlow/Subcategory2Screen';
+import SharedCategoryScreen from './screens/CategoryFlow/SharedCategoryScreen';
+import SharedCategory1Screen from './screens/CategoryFlow/SharedCategory1Screen';
+import GenerateReport from './screens/GenerateReport/GenerateReport';
 
 function App() {
-  const [activeMainCategory, setActiveMainCategory] = useState('');
-  const [activeSubcategory, setActiveSubcategory] = useState('');
-
-  console.log('activeMainCategory: ', activeMainCategory)
-  console.log('activeSubcategory: ', activeSubcategory)
-
-  const handleSelectCategory = (categoryName) => {
-    setActiveMainCategory(categoryName);
-  };
-
-  const firstMainCategory = [
-    {
-      categoryLetter: 'A',
-      name: 'Actions',
-      customColor: 'black',
-      subcategories: [
-        {
-          categoryLetter: 'A-1',
-          name: 'Conflict Detection',
-          customColor: 'black',
-        },
-        {
-          categoryLetter: 'A-3',
-          name: 'Judge/Plan',
-          customColor: 'black',
-        },
-        {
-          categoryLetter: 'A-4',
-          name: 'Execution',
-          customColor: 'black',
-        },
-        {
-          categoryLetter: 'A-5',
-          name: 'Compliance with rules',
-          customColor: 'black',
-        },
-      ]
-    },
-    {
-      categoryLetter: null,
-      name: 'Personal and Interpersonal context',
-      customColor: 'black'
-    },
-  ]
-
-  const secondMainCategory = [
-    {
-      categoryLetter: 'B-1',
-      name: 'Pilot Actions',
-      customColor: 'black'
-    },
-    {
-      categoryLetter: 'B-2',
-      name: `Pilot/ATCO Communications`,
-      customColor: 'black'
-    },
-  ]
-
-  const renderActionCard = (categoryLetter, name, customColor, onCardPressed) => {
-    return (
-      <div className='main-container-card' onClick={() => onCardPressed()}>
-        <div className='inner-container-card'>
-          {categoryLetter && <h1 className='card-text-style' style={{ color: customColor || 'black' }}>{categoryLetter}. </h1>}
-          <h1 className='card-text-style' style={{ color: customColor || 'black' }}>{name}</h1>
-        </div>
-      </div>
-    )
-  }
-
-  const renderTestCards = () => {
-    if (activeMainCategory === 'Operator Involvement') {
-      if (activeSubcategory === 'Actions') {
-        const foundedCatgeory = firstMainCategory.find(category => category.name === 'Actions')
-        return foundedCatgeory.subcategories.map(category => {
-          return renderActionCard(category.categoryLetter, category.name, category.customColor, () => setActiveSubcategory(category.name))
-        })  
-      }
-      return firstMainCategory.map(category => {
-        return renderActionCard(category.categoryLetter, category.name, category.customColor, () => setActiveSubcategory(category.name))
-      })
-    } else if (activeMainCategory === 'Pilot Involvement') {
-      return secondMainCategory.map(category => {
-        return renderActionCard(category.categoryLetter, category.name, category.customColor, () => console.log('clicked'))
-      })
-    }
-  }
+  let logger = useSelector(store => store.store)
+  console.log('logger -->', logger)
 
   return (
     <div id="App">
-      <Sidebar activeMainCategory={activeMainCategory} onSelectCategory={handleSelectCategory} />
-      <div style={{ position: 'fixed', left: '25%', height: '100%', alignItems: 'start', justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
-        {renderTestCards()}
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" exact element={<HomeScreen />} />
+          <Route path="/category" exact element={<CategoryScreen />} />
+          <Route path="/subcategory1" exact element={<Subcategory1Screen />} />
+          <Route path="/subcategory2" exact element={<Subcategory2Screen />} />
+          <Route path="/shared-category" exact element={<SharedCategoryScreen />} />
+          <Route path="/shared-category1" exact element={<SharedCategory1Screen />} />
+          <Route path="/generate-report" exact element={<GenerateReport />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
